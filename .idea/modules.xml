@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/birds/birds.iml" filepath="$PROJECT_DIR$/birds/birds.iml" />
+      <module fileurl="file://$PROJECT_DIR$/calculator/calculator.iml" filepath="$PROJECT_DIR$/calculator/calculator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cityhall/cityhall.iml" filepath="$PROJECT_DIR$/cityhall/cityhall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tiles/tiles.iml" filepath="$PROJECT_DIR$/tiles/tiles.iml" />
+      <module fileurl="file://$PROJECT_DIR$/time/time.iml" filepath="$PROJECT_DIR$/time/time.iml" />
+    </modules>
+  </component>
+</project>
