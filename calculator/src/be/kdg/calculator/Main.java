@@ -20,10 +20,12 @@ public class Main extends Application {
         // Create the Presenter and connect it to the View and Model
         Presenter presenter = new Presenter(calculatorPane, calculator);
 
-        // Set up the Scene and Stage
-        Scene scene = new Scene(calculatorPane, 300, 400); // Adjust size as needed
+        // Set up the Scene and Stage (compact size, apply CSS)
+        Scene scene = new Scene(calculatorPane, 250, 350); // Matches the compact design
+        scene.getStylesheets().add(getClass().getResource("/calculator.css").toExternalForm());
         primaryStage.setTitle("Calculator");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false); // Prevent window resizing to avoid stretching
         primaryStage.show();
     }
 

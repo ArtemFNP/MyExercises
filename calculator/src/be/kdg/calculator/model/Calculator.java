@@ -76,4 +76,8 @@ public class Calculator {
     public String toString() {
         return getDisplay();
     }
+
+    public String getDisplayText() {
+        return getDisplay();
+    }
 }

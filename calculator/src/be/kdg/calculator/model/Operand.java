@@ -1,54 +1,43 @@
 package be.kdg.calculator.model;
 
 public class Operand {
-    private String value;
+    private StringBuilder value = new StringBuilder();
 
-    Operand() {
-        this.value = "";
-    }
-
-    Operand(double value) {
-        if (value % 1.0 == 0.0) {
-            this.value = String.valueOf((long) value);
+    public void add(OperandCharacter character) throws CalculatorException {
+        if (character == OperandCharacter.DECIMAL_SEPARATOR && value.indexOf(",") != -1) {
+            throw new CalculatorException("Duplicate decimal separator not allowed.");
         }
-        else {
-            final String temp = String.valueOf(value);
-            this.value = temp.replaceAll("[.,]", String.valueOf(OperandCharacter.DECIMAL_SEPARATOR.getChar()));
-        }
+        value.append(character.getChar());
     }
 
-    private boolean isInteger() {
-        return !this.value.contains(String.valueOf(OperandCharacter.DECIMAL_SEPARATOR));
-    }
-
-    boolean isValid() {
-        return !this.value.isEmpty() && !this.value.endsWith(String.valueOf(OperandCharacter.DECIMAL_SEPARATOR));
-    }
-
-    double getDoubleValue() {
-        double result;
+    public boolean isValid() {
+        if (value.length() == 0) return false;
+        String normalizedValue = value.toString().replace(',', '.');
         try {
-            result = Double.parseDouble(this.value);
+            Double.parseDouble(normalizedValue);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
-        catch (NumberFormatException ex) {
-            result = Double.parseDouble(this.value.replace(OperandCharacter.DECIMAL_SEPARATOR.getChar(), '.'));
-        }
-        return result;
     }
 
-    void add(OperandCharacter operandCharacter) throws CalculatorException{
-        if (!operandCharacter.isDigit() && !isInteger()) {
-            throw new CalculatorException("Adding a second decimal separator to a number.");
+    public double getDoubleValue() throws CalculatorException {
+        if (!isValid()) {
+            throw new CalculatorException("Invalid operand value: " + value);
         }
-        else if (!operandCharacter.isDigit() && this.value.isEmpty()) {
-            this.value += OperandCharacter.ZERO.getChar();
-        }
-
-        this.value += operandCharacter.getChar();
+        String normalizedValue = value.toString().replace(',', '.');
+        return Double.parseDouble(normalizedValue);
     }
 
     @Override
     public String toString() {
-        return value;
+        return value.toString();
+    }
+
+    public Operand() {
+    }
+
+    public Operand(double value) {
+        this.value = new StringBuilder(String.valueOf(value).replace('.', ','));
     }
 }
